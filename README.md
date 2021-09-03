@@ -1,1 +1,3 @@
-# js_fundamentals
+# Fundamentos Javascript
+
+## 1. Repositorio
