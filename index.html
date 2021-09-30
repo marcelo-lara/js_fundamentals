@@ -50,12 +50,17 @@
             direccion_x: 0, //0 de izquierda a derecha; 1 de derecha a izquierda
             direccion_y: 0, //0 de arriba hacia abajo; 1 de abajo hacia arriba
 
+            _imagen_anterior: "",
+
             //funciones del fantasma
             render: ()=>{
 
                 //para que mire hacia donde avanza, elijo la imagen en función de la dirección
                 imagen = "img/ghost_" + fantasma.direccion_y + "_" + fantasma.direccion_x + ".gif";
-                fantasma.elemento.src = imagen;
+                if(fantasma._imagen_anterior != imagen){ //sólo cambio la imagen cuando es diferente a la anterior
+                    fantasma._imagen_anterior = imagen;
+                    fantasma.elemento.src = imagen;
+                }
 
                 //ubico al fantasma 
                 fantasma.elemento.style.left = fantasma.x + "px"
