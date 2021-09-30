@@ -38,74 +38,87 @@
         // cómo hago para que vaya más rapido!?!
         // -> en lugar de avanzar de a 1 pixel, avanzo de a varios por vez.
 
-        var x = 0;
-        var y = 0;
 
-        var borde_derecho = 1000;
-        var borde_inferior = 600;
+        ///---------------------------------------------------------------------------------------------------------
+        /// 1. declaro las variables y objetos que voy a usar
+        const fantasma = {
+            
+            // propiedades del fantasma
+            x: 0,
+            y: 0,
+            elemento: undefined,
+            direccion_x: 0, //0 de izquierda a derecha; 1 de derecha a izquierda
+            direccion_y: 0, //0 de arriba hacia abajo; 1 de abajo hacia arriba
 
-        var direccion_x = 0; //0 de izquierda a derecha; 1 de derecha a izquierda
-        var direccion_y = 0; //0 de arriba hacia abajo; 1 de abajo hacia arriba
+            //funciones del fantasma
+            render: ()=>{
 
-        var personaje;
+                //para que mire hacia donde avanza, elijo la imagen en función de la dirección
+                imagen = "img/ghost_" + fantasma.direccion_y + "_" + fantasma.direccion_x + ".gif";
+                fantasma.elemento.src = imagen;
+
+                //ubico al fantasma 
+                fantasma.elemento.style.left = fantasma.x + "px"
+                fantasma.elemento.style.top = fantasma.y + "px"
+
+            },
+
+        };
+
+        const canvas = {
+            ancho: 1000,
+            alto: 600,
+        };
 
         function actualizar(){
             
             // defino el siguiente X
-            if (direccion_x == 0)
+            if (fantasma.direccion_x == 0)
             { //0. de izquierda a derecha
-                x = x + 1;
-                if (x > borde_derecho) {
-                    direccion_x = 1;
-                    personaje = "img/ghost_" + direccion_y + "_" + direccion_x + ".gif";
-                    document.getElementById("fantasma").src = personaje;
+                fantasma.x++;
+                if (fantasma.x > canvas.ancho) {
+                    fantasma.direccion_x = 1;
                 }
             }
             else
             { //1. de derecha a izquierda
-                x = x - 1;
-                if (x < 1) {
-                    direccion_x = 0; //cambio de dirección
-                    personaje = "img/ghost_" + direccion_y + "_" + direccion_x + ".gif";
-                    document.getElementById("fantasma").src = personaje;
+                fantasma.x--;
+                if (fantasma.x < 1) {
+                    fantasma.direccion_x = 0; //cambio de dirección
                 }
             }
 
-            // seteo CSS left
-            document.getElementById("fantasma").style.left = x + "px";
-
             // defino el siguiente Y
-            if (direccion_y == 0){
-                y = y + 1;
-                if (y > borde_inferior) {
-                    direccion_y = 1;
-                    personaje = "img/ghost_" + direccion_y + "_" + direccion_x + ".gif";
-                    document.getElementById("fantasma").src = personaje;
+            if (fantasma.direccion_y == 0){
+                fantasma.y++;
+                if (fantasma.y > canvas.alto) {
+                    fantasma.direccion_y = 1;
                 }
             }
             else
             {
-                y = y - 1;
-                if (y < 1) {
-                    direccion_y = 0;
-                    personaje = "img/ghost_" + direccion_y + "_" + direccion_x + ".gif";
-                    document.getElementById("fantasma").src = personaje;
+                fantasma.y--;
+                if (fantasma.y < 1) {
+                    fantasma.direccion_y = 0;
                 }
             }
 
-            // seteo CSS top
-            document.getElementById("fantasma").style.top = y + "px";
+            // le pido al fantasma que se dibuje
+            fantasma.render();
 
-             // me agendo llamar a acutalizar
+            // me agendo llamar a acutalizar
             setTimeout(actualizar, 10);
         }
 
-        personaje = "img/ghost_0_0.gif";
-        document.getElementById("fantasma").src = personaje;
+
+        ///---------------------------------------------------------------------------------------------------------
+        /// 2. inicializo (por única vez, al cargar la página)
+
+        // asigno el elemento html (IMG) que va a mostrar el fantasma 
+        fantasma.elemento = document.getElementById("fantasma");
 
         // llamo actualizar la primera vez
         actualizar();
-
 
     </script>
 
