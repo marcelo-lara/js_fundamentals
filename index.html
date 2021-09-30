@@ -78,34 +78,21 @@
         function actualizar(){
             
             // defino el siguiente X
-            if (fantasma.direccion_x == 0)
-            { //0. de izquierda a derecha
-                fantasma.x++;
-                if (fantasma.x > canvas.ancho) {
-                    fantasma.direccion_x = 1;
-                }
-            }
-            else
-            { //1. de derecha a izquierda
-                fantasma.x--;
-                if (fantasma.x < 1) {
-                    fantasma.direccion_x = 0; //cambio de dirección
-                }
-            }
 
-            // defino el siguiente Y
-            if (fantasma.direccion_y == 0){
-                fantasma.y++;
-                if (fantasma.y > canvas.alto) {
-                    fantasma.direccion_y = 1;
-                }
+            fantasma.direccion_x == 0 ?  fantasma.x++ : fantasma.x-- ;
+            fantasma.direccion_y == 0 ? fantasma.y++ : fantasma.y--;
+
+            if (fantasma.x > canvas.ancho - fantasma.elemento.width) {
+                    fantasma.direccion_x = 1;
             }
-            else
-            {
-                fantasma.y--;
-                if (fantasma.y < 1) {
-                    fantasma.direccion_y = 0;
-                }
+            if (fantasma.x < 1) {
+                fantasma.direccion_x = 0; //cambio de dirección
+            }
+            if (fantasma.y > canvas.alto - fantasma.elemento.height) {
+                    fantasma.direccion_y = 1;
+            }
+            if (fantasma.y < 1) {
+                fantasma.direccion_y = 0;
             }
 
             // le pido al fantasma que se dibuje
